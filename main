@@ -1,0 +1,26 @@
+
+import  smtplib
+import email.message
+
+def enviar_email():
+    email_corpo = """                 
+    <p> <b>Se você está lendo esse email é porque funcionou</b> </p>   
+    <p> <b>Apenas um Teste</b> </p>  
+    <p> Email gerado automaticamente </p>
+    """
+    mensagem = email.message.Message()
+    mensagem['Subject'] = "Assunto"
+    mensagem['From'] = 'SEU EMAIL'
+    mensagem['To'] = 'DESTINATARIO '
+    senha = "CRIE SUA SENHA NO GOOGLE"    # senhas de app no google
+
+    mensagem.add_header('Content-Type','text/html')
+    mensagem.set_payload(email_corpo)
+
+    servidor = smtplib.SMTP("smtp.gmail.com:587")
+    servidor.starttls()
+    servidor.login(mensagem["From"],senha)
+    servidor.sendmail(mensagem['From'],[mensagem['To']],mensagem.as_string().encode('utf-8'))
+    print('Email enviado com sucesso')
+
+enviar_email()
